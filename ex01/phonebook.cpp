@@ -1,7 +1,8 @@
 #include "Phonebook.hpp"
-#include <cstring>
-#include <cstdlib>
-#include <string>
+
+int		is_number(std::string str);
+int		ft_strncmp(std::string s1, const char	*s2, int n);
+void	loop_getline(std::string *input, std::string question);
 
 void	Phonebook::bookAdd(std::string str[5])
 {
@@ -14,15 +15,17 @@ void	Phonebook::bookAdd(std::string str[5])
 	this->Contacts[number].phoneNumber = str[3];
 	this->Contacts[number].darkestSecret = str[4];
 	this->count++;
-	if (number == 8)
+	if (number == 7)
 		this->count = 0;
+	if (print_count < 9)
+		print_count++;
 }
 
 void	Phonebook::bookPrint(int flag)
 {
-	if (flag > 0)
+	if (flag > 0 && flag <= this->print_count)
 	{
-		std::cout << "CONTATO " << flag << std::endl << std::endl;
+		std::cout << std::endl << "CONTATO " << flag << std::endl << std::endl;
 		std::cout << "First Name: " << this->Contacts[flag - 1].firstName << std::endl;
 		std::cout << "Last Name: " << this->Contacts[flag - 1].lastName << std::endl;
 		std::cout << "Nickname: " << this->Contacts[flag - 1].nickName << std::endl;
@@ -30,57 +33,44 @@ void	Phonebook::bookPrint(int flag)
 		std::cout << "Darkest Secret: " << this->Contacts[flag - 1].darkestSecret << std::endl << std::endl;
 		return ;
 	}
-	for (int i=0; i < 8; i++)
+	if (flag)
+		return ;
+	if (this->print_count)
+		std::cout << "     Index|First Name| Last Name|  Nickname|" << std::endl;
+	for (int i=0; i < this->print_count; i++)
 	{
-		std::cout << "CONTATO " << i + 1 << std::endl << std::endl;
-		std::cout << "First Name: " << this->Contacts[i].firstName << std::endl;
-		std::cout << "Last Name: " << this->Contacts[i].lastName << std::endl;
-		std::cout << "Nickname: " << this->Contacts[i].nickName << std::endl;
-		std::cout << "Phone Number: " << this->Contacts[i].phoneNumber << std::endl;
-		std::cout << "Darkest Secret: " << this->Contacts[i].darkestSecret << std::endl;
+		std::cout << std::right << std::setw(10) << i + 1 << "|";
+		std::cout << std::right << std::setw(10) << this->Contacts[i].firstName.substr(0, 10) << "|";
+		std::cout << std::right << std::setw(10) << this->Contacts[i].lastName.substr(0, 10) << "|";
+		std::cout << std::right << std::setw(10) << this->Contacts[i].nickName.substr(0, 10) << "|";
 		std::cout << std::endl;
 	}
 }
-
 
 void	add_func(Phonebook *PhoneBook)
 {
 	std::string add_input[5];
 
-	std::cout << "First Name: ";
-	std::getline(std::cin ,add_input[0]);
-	std::cout << "Last Name: ";
-	std::getline(std::cin ,add_input[1]);
-	std::cout << "Nickname: ";
-	std::getline(std::cin ,add_input[2]);
-	std::cout << "Phone Number: ";
-	std::getline(std::cin ,add_input[3]);
-	std::cout << "Darkest secret: ";
-	std::getline(std::cin ,add_input[4]);
+	loop_getline(&add_input[0], "First Name: ");
+	loop_getline(&add_input[1], "Last Name: ");
+	loop_getline(&add_input[2], "Nickname: ");
+	loop_getline(&add_input[3], "Phone Number: ");
+	loop_getline(&add_input[4], "Darkest secret: ");
 	PhoneBook->bookAdd(add_input);
-}
-
-int	ft_strncmp(std::string s1, const char	*s2, int n)
-{
-	int	i;
-
-	i = 0;
-	while (s1[i] == s2[i] && i < n - 1)
-		i++;
-	return (s1[i] - s2[i]);
 }
 
 int main(int argc, char **argv)
 {
 	std::string input;
 	int			number;
+	Phonebook PhoneBook;
 
 	if (argc != 1)
 		return (0);
 	(void) argv;
-	Phonebook PhoneBook;
 	while (1)
 	{
+		std::cout << "COMMANDS: (ADD), (SEARCH), (EXIT)" << std::endl;
 		std::cout << "PhoneBook: ";
 		if (!std::getline(std::cin, input))
 		{
@@ -90,10 +80,15 @@ int main(int argc, char **argv)
 		if (!input.compare("ADD"))
 			add_func(&PhoneBook);
 		else if (!input.compare("SEARCH"))
-			PhoneBook.bookPrint(0);
-		else if (!ft_strncmp(input, "SEARCH", 6))
 		{
-			number = atoi((char *)&input[6]);
+			PhoneBook.bookPrint(0);
+			std::cout << "Index: ";
+			if (!std::getline(std::cin, input))
+			{
+				std::cout << std::endl;
+				break ;
+			}
+			number = atoi(input.c_str());
 			if (number > 0 && number < 9)
 				PhoneBook.bookPrint(number);
 			else
