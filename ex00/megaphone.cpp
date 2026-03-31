@@ -27,9 +27,7 @@ int main(int argc, char **argv)
 	{
 		str = argv[i];
 		for (size_t j=0; j < str.size(); j++)
-		{
 			str[j] = std::toupper(str[j]);
-		}
 		std::cout << str << std::ends;
 	}
 	std::cout << std::endl;
