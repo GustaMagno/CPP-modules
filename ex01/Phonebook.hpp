@@ -12,7 +12,8 @@ private:
 	int		count;
 	int		print_count;
 public:
-	Phonebook() : count(0), print_count(0){}
+	Phonebook();
+	~Phonebook();
 	void	bookAdd(std::string str[5]);
 	void	bookPrint(int flag);
 	Contact	bookSearch();

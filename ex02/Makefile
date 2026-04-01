@@ -7,7 +7,7 @@ OBJ_DIR = obj
 OBJS = $(SRCS:%.cpp=$(OBJ_DIR)/%.o)
 
 CXX = c++
-CXXFLAGS = -Wall -Wextra -Werror -g -std=c++98
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
 all: $(NAME)
 
