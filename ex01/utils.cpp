@@ -1,5 +1,17 @@
 #include "Phonebook.hpp"
 
+int		is_space(std::string str)
+{
+	int	i;
+
+	i = 0;
+	while (std::isspace(str[i]))
+		i++;
+	if (!str[i])
+		return (1);
+	return (0);
+}
+
 int		is_number(std::string str)
 {
 	int	i;
@@ -29,7 +41,7 @@ void	loop_getline(std::string *input, std::string question)
 			std::cout << std::endl;
 			exit(0);
 		}
-		if ((*input).empty())
+		if ((*input).empty() || is_space(*input))
 			std::cout << "Invalid answer" << std::endl;
 		else if (!question.compare("Phone Number: ") && !is_number(*input))
 			std::cout << "Invalid number" << std::endl;
