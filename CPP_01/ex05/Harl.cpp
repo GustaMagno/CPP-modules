@@ -17,5 +17,23 @@ void	Harl::warning()
 
 void	Harl::error()
 {
-	std::cout << "I love having extra bacon for my 7XL-double-cheese-triple-pickle-specialketchup burger. I really do!" << std::endl;
+	std::cout << "This is unacceptable! I want to speak to the manager now." << std::endl;
+}
+
+void	Harl::complain(std::string level)
+{
+	std::string keys[4] = {
+		"DEBUG", "INFO", "WARNING", "ERROR"
+	};
+	void (Harl::*values[4])() = {
+		&Harl::debug,
+		&Harl::info,
+		&Harl::warning,
+		&Harl::error
+	};
+	for (int i = 0; i < 4; i++)
+	{
+		if (!keys[i].compare(level))
+			(this->*values[i])();
+	}
 }

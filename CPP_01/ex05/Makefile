@@ -1,6 +1,7 @@
-NAME = createfile
+NAME = Harl
 
 SRCS = main.cpp \
+	Harl.cpp
 
 
 OBJ_DIR = obj

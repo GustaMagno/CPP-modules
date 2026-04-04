@@ -1,6 +1,6 @@
-#include "Harl.cpp"
+#include "Harl.hpp"
 
-int main(int argc, char **argv)
+int main()
 {
 	Harl	Htests;
 
