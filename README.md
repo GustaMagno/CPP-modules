@@ -30,5 +30,9 @@ This repository contains my solutions for the C++ modules at **42 Lisboa**. The 
 Each module has its own directory and Makefile.
 ```bash
 cd module_00/ex00
+```
+```bash
 make
+```
+```bash
 ./megaphone "hello world"
