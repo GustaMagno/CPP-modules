@@ -1,6 +1,6 @@
 NAME = createfile
 
-SRCS = main.cpp \
+SRCS = main.cpp 
 
 
 OBJ_DIR = obj
@@ -12,7 +12,7 @@ CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@$(CXX) $(OBJS) -o $(NAME)
+	@$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
 
 $(OBJ_DIR)/%.o: %.cpp
 	@mkdir -p $(dir $@)
