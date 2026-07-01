@@ -13,10 +13,11 @@ void	Zombie::setName(std::string name)
 Zombie::Zombie()
 {
 	this->name = "None";
+	std::cout << this->name + ": Is created." << std::endl;
 }
 
 Zombie::~Zombie()
 {
-	std::cout << this->name + ": Is out." << std::endl;
+	std::cout << this->name + ": Is destroyed." << std::endl;
 }
 

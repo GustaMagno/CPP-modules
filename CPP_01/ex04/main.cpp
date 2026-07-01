@@ -5,7 +5,7 @@
 # include <string>
 # include <iomanip>
 
-std::string	content_file(std::ifstream& file, char	*arg1, char	*arg2)
+std::string	content_file(std::ifstream& file, char	*str_cut, char	*str_insert)
 {
 	int				needle;
 	int				i;
@@ -15,15 +15,16 @@ std::string	content_file(std::ifstream& file, char	*arg1, char	*arg2)
 	needle = 0;
 	while (std::getline(file, line))
 		content += line + "\n";
-	while ((content.find(arg1, needle) != std::string::npos) && needle < (int)content.size())
+	while ((content.find(str_cut, needle) != std::string::npos) && needle < (int)content.size())
 	{
 		i = 0;
-		while (arg1[i])
+		needle = content.find(str_cut, needle);
+		while (str_cut[i])
 			i++;
 		content.erase(needle, i);
-		content.insert(needle, arg2);
+		content.insert(needle, str_insert);
 		i = 0;
-		while (arg2[i])
+		while (str_insert[i])
 			i++;
 		needle += i;
 		std::cout << "content " + content << " index " <<  i << " needle " << needle << std::endl; 
@@ -36,13 +37,13 @@ int main(int argc, char **argv)
 	if (argc != 4)
 		return (std::cerr << "Input error" << std::endl, 1);
 	
-	std::string		strReplace((const char *)argv[1]);
+	std::string		nameReplace((const char *)argv[1]);
 	std::ifstream	file(argv[1]);
 
 	if (!file)
 		return (std::cerr << "Error in file." << std::endl, 1);
 
-	std::ofstream	fileReplace(strReplace.append(".replace").c_str());
+	std::ofstream	fileReplace(nameReplace.append(".replace").c_str());
 	if (!fileReplace)
 		return (std::cerr << "Error in file." << std::endl, 1);
 
